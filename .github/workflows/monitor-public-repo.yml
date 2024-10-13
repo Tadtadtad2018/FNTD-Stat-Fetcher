@@ -42,7 +42,7 @@ jobs:
         fi
 
     - name: Send notification to Discord if new commit
-      if: steps.check_commit.outputs.commit_sha != secrets.LAST_COMMIT_SHA  # Conditional step
+      if: env.commit_sha != secrets.LAST_COMMIT_SHA  # Conditional step
       run: |
         curl -H "Content-Type: application/json" \
         -X POST \
@@ -50,6 +50,6 @@ jobs:
         ${{ secrets.DISCORD_WEBHOOK_URL }}
 
     - name: Update last commit SHA
-      if: steps.check_commit.outputs.commit_sha != secrets.LAST_COMMIT_SHA  # Conditional step
+      if: env.commit_sha != secrets.LAST_COMMIT_SHA  # Conditional step
       run: |
         echo "::set-secret name=LAST_COMMIT_SHA::${{ env.commit_sha }}"
