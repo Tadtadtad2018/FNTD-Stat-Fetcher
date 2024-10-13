@@ -2,7 +2,7 @@ name: Monitor Public GitHub Repo Changes
 
 on:
   schedule:
-    - cron: "*/10 * * * *"  # Runs every 10 minutes (you can adjust this)
+    - cron: "*/5 * * * *"  # Runs every 5 minutes (you can adjust this)
     
 jobs:
   monitor_repo:
