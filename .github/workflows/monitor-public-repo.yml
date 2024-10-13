@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - name: Checkout the repo
+      uses: actions/checkout@v2
+
     - name: Get latest commit from public repo
       run: |
         curl -s https://api.github.com/repos/FiveNightsTD/Stats/commits?per_page=1 > latest_commit.json
@@ -27,30 +30,38 @@ jobs:
     - name: Check for new commit
       id: check_commit
       run: |
-        LAST_COMMIT_SHA="${{ secrets.LAST_COMMIT_SHA }}"
-        echo "Last known commit SHA: $LAST_COMMIT_SHA"
+        # Check if the last_commit_sha.txt file exists
+        if [ -f last_commit_sha.txt ]; then
+          LAST_COMMIT_SHA=$(cat last_commit_sha.txt)
+          echo "Last known commit SHA: $LAST_COMMIT_SHA"
+        else
+          LAST_COMMIT_SHA=""
+          echo "last_commit_sha.txt not found. This is the first run."
+        fi
+
         echo "Current commit SHA: ${{ env.commit_sha }}"
 
-        # Check if the LAST_COMMIT_SHA secret is set
-        if [[ -z "$LAST_COMMIT_SHA" ]]; then
-          echo "LAST_COMMIT_SHA secret is not set, this might be the first run."
-          echo "LAST_COMMIT_SHA=${{ env.commit_sha }}" >> $GITHUB_ENV
-        elif [ "$LAST_COMMIT_SHA" != "${{ env.commit_sha }}" ]; then
+        # Compare current commit SHA with the last commit SHA
+        if [ "$LAST_COMMIT_SHA" != "${{ env.commit_sha }}" ]; then
           echo "New commit detected!"
-          echo "LAST_COMMIT_SHA=${{ env.commit_sha }}" >> $GITHUB_ENV
+          echo "${{ env.commit_sha }}" > last_commit_sha.txt
         else
           echo "No new commits."
+          exit 0  # Exit the workflow if no new commits
         fi
 
     - name: Send notification to Discord if new commit
-      if: env.commit_sha != env.LAST_COMMIT_SHA  # Conditional step
       run: |
         curl -H "Content-Type: application/json" \
         -X POST \
-        -d "{\"content\": \"New commit by ${{ env.commit_author }}: ${{ env.commit_message }}. [View Commit](${{ env.commit_url }})\"}" \
+        -d "{\"content\": \"<@787616132176937020> New commit by ${{ env.commit_author }}: ${{ env.commit_message }}. [View Commit](${{ env.commit_url }})\"}" \
         ${{ secrets.DISCORD_WEBHOOK_URL }}
 
-    - name: Update last commit SHA
-      if: env.commit_sha != env.LAST_COMMIT_SHA  # Conditional step
+    - name: Commit last commit SHA
       run: |
-        echo "::set-secret name=LAST_COMMIT_SHA::${{ env.commit_sha }}"
+        git config --local user.name "GitHub Actions"
+        git config --local user.email "actions@github.com"
+        git add last_commit_sha.txt
+        git commit -m "Update last commit SHA to ${{ env.commit_sha }}"
+        git push
+      # Add `if: steps.check_commit.outcome == 'success'` if needed to only run if the previous step succeeded
