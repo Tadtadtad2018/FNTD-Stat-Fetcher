@@ -2,7 +2,7 @@ name: Monitor Public GitHub Repo Changes
 
 on:
   schedule:
-    - cron: "*/5 * * * *"  # Runs every 5 minutes
+    - cron: "*/5 * * * *"  # Runs every 10 minutes
   workflow_dispatch:  # Allows manual trigger
 
 jobs:
@@ -25,6 +25,7 @@ jobs:
         echo "commit_url=$COMMIT_URL" >> $GITHUB_ENV
 
     - name: Check for new commit
+      id: check_commit
       run: |
         echo "Last known commit SHA: ${{ secrets.LAST_COMMIT_SHA }}"
         echo "Current commit SHA: ${{ env.commit_sha }}"
@@ -41,7 +42,7 @@ jobs:
         fi
 
     - name: Send notification to Discord if new commit
-      if: env.commit_sha != secrets.LAST_COMMIT_SHA  # Conditional step
+      if: steps.check_commit.outputs.commit_sha != secrets.LAST_COMMIT_SHA  # Conditional step
       run: |
         curl -H "Content-Type: application/json" \
         -X POST \
@@ -49,6 +50,6 @@ jobs:
         ${{ secrets.DISCORD_WEBHOOK_URL }}
 
     - name: Update last commit SHA
-      if: env.commit_sha != secrets.LAST_COMMIT_SHA  # Conditional step
+      if: steps.check_commit.outputs.commit_sha != secrets.LAST_COMMIT_SHA  # Conditional step
       run: |
         echo "::set-secret name=LAST_COMMIT_SHA::${{ env.commit_sha }}"
