@@ -17,7 +17,8 @@ jobs:
         COMMIT_MESSAGE=$(jq -r '.[0].commit.message' latest_commit.json)
         COMMIT_AUTHOR=$(jq -r '.[0].commit.author.name' latest_commit.json)
         COMMIT_URL=$(jq -r '.[0].html_url' latest_commit.json)
-        
+
+        # Set environment variables
         echo "commit_sha=$COMMIT_SHA" >> $GITHUB_ENV
         echo "commit_message=$COMMIT_MESSAGE" >> $GITHUB_ENV
         echo "commit_author=$COMMIT_AUTHOR" >> $GITHUB_ENV
@@ -28,6 +29,7 @@ jobs:
         echo "Last known commit SHA: ${{ secrets.LAST_COMMIT_SHA }}"
         echo "Current commit SHA: ${{ env.commit_sha }}"
         
+        # Compare SHA to detect new commits
         if [ "${{ secrets.LAST_COMMIT_SHA }}" != "${{ env.commit_sha }}" ]; then
           echo "New commit detected!"
           echo "LAST_COMMIT_SHA=${{ env.commit_sha }}" >> $GITHUB_ENV
@@ -36,7 +38,7 @@ jobs:
         fi
 
     - name: Send notification to Discord if new commit
-      if: ${{ env.commit_sha != secrets.LAST_COMMIT_SHA }}
+      if: ${{ env.commit_sha != secrets.LAST_COMMIT_SHA }}  # Conditional step
       run: |
         curl -H "Content-Type: application/json" \
         -X POST \
@@ -44,6 +46,6 @@ jobs:
         ${{ secrets.DISCORD_WEBHOOK_URL }}
 
     - name: Update last commit SHA
-      if: ${{ env.commit_sha != secrets.LAST_COMMIT_SHA }}
+      if: ${{ env.commit_sha != secrets.LAST_COMMIT_SHA }}  # Conditional step
       run: |
         echo "::set-secret name=LAST_COMMIT_SHA::${{ env.commit_sha }}"
