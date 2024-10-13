@@ -1,0 +1,81 @@
+[
+  {
+    "sha": "c212ec1b83e922aabf26ddf58a496291aca647e6",
+    "node_id": "C_kwDOMfJu8NoAKGMyMTJlYzFiODNlOTIyYWFiZjI2ZGRmNThhNDk2MjkxYWNhNjQ3ZTY",
+    "commit": {
+      "author": {
+        "name": "GumGooBee",
+        "email": "82234986+GumGooBee@users.noreply.github.com",
+        "date": "2024-10-13T14:03:23Z"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com",
+        "date": "2024-10-13T14:03:23Z"
+      },
+      "message": "Update TowerStats.json",
+      "tree": {
+        "sha": "660aee878790df6cc874820cd9c9eb0a63b80208",
+        "url": "https://api.github.com/repos/FiveNightsTD/Stats/git/trees/660aee878790df6cc874820cd9c9eb0a63b80208"
+      },
+      "url": "https://api.github.com/repos/FiveNightsTD/Stats/git/commits/c212ec1b83e922aabf26ddf58a496291aca647e6",
+      "comment_count": 0,
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJnC9MrCRC1aQ7uu5UhlAAATBwQAHzDQiTOOmie+dpBsTM/j45B\nm7xAT6A5kFc8kZpsl/ZaiO+gyk53YMY7mTFAEkIopvBR5UHb45AhBwY85dHwjTmV\n3My6/vLK1lp5Ol0k4ba/tZVs/ApLF4fJxhQVZyHsP4tJ2Wc0nFNUvhcDVT4dry/L\nVimgdAGMHRbVKhmeyRg1Z0qra9qeLuvpYehq7HEfVeJWs+w8n1pJuVHhrDYe2xpv\nPLCrmI7vsU2HqO69h1g1CQ/1D0+s4yPm8166VHNh2gUhIHmTt47HvhZyTCrAqz1a\nqs3fXCktD70gTOG9tsYwCJMQx4xm+G77TGKeWMyLU5L/LYHsb7ISXSV8kBS+NUTg\nOOcsSSMPBceiLW+o9sFnoG8YfX2xIBPcmOQ21nUevbiUkdNlrN/j6y3ZqOAtqcKN\nJd1PqE54duTxLUcI60geguIjHjoKDzNfS/SY1fqe/RVvrtnHW32G8QdkwIAGGdHl\nps3tkvnxePRKdCdi1CflU3hbvkDegDRLIPN4JUGDkU0iNTPeoOy1FEWUW3cWRJPS\n669fg4MHrC3elmBZ820tzxPK1N3rDWlTQF4b2a3UwQLxWZC3RUYyyTqBjef+FLxH\nVHrDTBT0ZscxkldmgpH0rnedfvNlWnUE1cAZYvQux7jdfvRZo52Mx4jQXyPlu0XS\nFVr3wmcsQ29YWwQY9D1U\n=fnB7\n-----END PGP SIGNATURE-----\n",
+        "payload": "tree 660aee878790df6cc874820cd9c9eb0a63b80208\nparent 0468e1ffcfe214522fa2cdd88312027feb5abd7d\nauthor GumGooBee <82234986+GumGooBee@users.noreply.github.com> 1728828203 -0400\ncommitter GitHub <noreply@github.com> 1728828203 -0400\n\nUpdate TowerStats.json"
+      }
+    },
+    "url": "https://api.github.com/repos/FiveNightsTD/Stats/commits/c212ec1b83e922aabf26ddf58a496291aca647e6",
+    "html_url": "https://github.com/FiveNightsTD/Stats/commit/c212ec1b83e922aabf26ddf58a496291aca647e6",
+    "comments_url": "https://api.github.com/repos/FiveNightsTD/Stats/commits/c212ec1b83e922aabf26ddf58a496291aca647e6/comments",
+    "author": {
+      "login": "GumGooBee",
+      "id": 82234986,
+      "node_id": "MDQ6VXNlcjgyMjM0OTg2",
+      "avatar_url": "https://avatars.githubusercontent.com/u/82234986?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/GumGooBee",
+      "html_url": "https://github.com/GumGooBee",
+      "followers_url": "https://api.github.com/users/GumGooBee/followers",
+      "following_url": "https://api.github.com/users/GumGooBee/following{/other_user}",
+      "gists_url": "https://api.github.com/users/GumGooBee/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/GumGooBee/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/GumGooBee/subscriptions",
+      "organizations_url": "https://api.github.com/users/GumGooBee/orgs",
+      "repos_url": "https://api.github.com/users/GumGooBee/repos",
+      "events_url": "https://api.github.com/users/GumGooBee/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/GumGooBee/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "committer": {
+      "login": "web-flow",
+      "id": 19864447,
+      "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/web-flow",
+      "html_url": "https://github.com/web-flow",
+      "followers_url": "https://api.github.com/users/web-flow/followers",
+      "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+      "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+      "organizations_url": "https://api.github.com/users/web-flow/orgs",
+      "repos_url": "https://api.github.com/users/web-flow/repos",
+      "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/web-flow/received_events",
+      "type": "User",
+      "site_admin": false
+    },
+    "parents": [
+      {
+        "sha": "0468e1ffcfe214522fa2cdd88312027feb5abd7d",
+        "url": "https://api.github.com/repos/FiveNightsTD/Stats/commits/0468e1ffcfe214522fa2cdd88312027feb5abd7d",
+        "html_url": "https://github.com/FiveNightsTD/Stats/commit/0468e1ffcfe214522fa2cdd88312027feb5abd7d"
+      }
+    ]
+  }
+]
