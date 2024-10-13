@@ -2,8 +2,9 @@ name: Monitor Public GitHub Repo Changes
 
 on:
   schedule:
-    - cron: "*/5 * * * *"  # Runs every 5 minutes (you can adjust this)
-    
+    - cron: "*/5 * * * *"  # Runs every 10 minutes
+  workflow_dispatch:  # Allows manual trigger
+
 jobs:
   monitor_repo:
     runs-on: ubuntu-latest
@@ -46,4 +47,3 @@ jobs:
       if: ${{ env.commit_sha != secrets.LAST_COMMIT_SHA }}
       run: |
         echo "::set-secret name=LAST_COMMIT_SHA::${{ env.commit_sha }}"
-
