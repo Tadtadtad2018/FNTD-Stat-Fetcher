@@ -5,7 +5,7 @@ on:
     - cron: "*/5 * * * *"  # Runs every 5 minutes
   workflow_dispatch:  # Allows manual trigger
 
-# Ensures that the workflow has write permissions for the contents
+# Ensure that the workflow has write permissions for the contents
 permissions:
   contents: write
 
@@ -66,7 +66,7 @@ jobs:
         git config --local user.name "GitHub Actions"
         git config --local user.email "actions@github.com"
         git add last_commit_sha.txt
-        git commit -m "Update last commit SHA to ${{ env.commit_sha }}"
+        # Add latest_commit.json only if needed, comment out if not required
+        git add latest_commit.json
+        git commit -m "Update last commit SHA to ${{ env.commit_sha }}" || echo "No changes to commit"
         git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/Tadtadtad2018/FNTD-Stat-Fetcher.git
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Use default token
