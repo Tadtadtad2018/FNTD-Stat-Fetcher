@@ -1,0 +1,49 @@
+name: Monitor Public GitHub Repo Changes
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"  # Runs every 10 minutes (you can adjust this)
+    
+jobs:
+  monitor_repo:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Get latest commit from public repo
+      run: |
+        curl -s https://api.github.com/repos/FiveNightsTD/Stats/commits?per_page=1 > latest_commit.json
+        COMMIT_SHA=$(jq -r '.[0].sha' latest_commit.json)
+        COMMIT_MESSAGE=$(jq -r '.[0].commit.message' latest_commit.json)
+        COMMIT_AUTHOR=$(jq -r '.[0].commit.author.name' latest_commit.json)
+        COMMIT_URL=$(jq -r '.[0].html_url' latest_commit.json)
+        
+        echo "commit_sha=$COMMIT_SHA" >> $GITHUB_ENV
+        echo "commit_message=$COMMIT_MESSAGE" >> $GITHUB_ENV
+        echo "commit_author=$COMMIT_AUTHOR" >> $GITHUB_ENV
+        echo "commit_url=$COMMIT_URL" >> $GITHUB_ENV
+
+    - name: Check for new commit
+      run: |
+        echo "Last known commit SHA: ${{ secrets.LAST_COMMIT_SHA }}"
+        echo "Current commit SHA: ${{ env.commit_sha }}"
+        
+        if [ "${{ secrets.LAST_COMMIT_SHA }}" != "${{ env.commit_sha }}" ]; then
+          echo "New commit detected!"
+          echo "LAST_COMMIT_SHA=${{ env.commit_sha }}" >> $GITHUB_ENV
+        else
+          echo "No new commits."
+        fi
+
+    - name: Send notification to Discord if new commit
+      if: ${{ env.commit_sha != secrets.LAST_COMMIT_SHA }}
+      run: |
+        curl -H "Content-Type: application/json" \
+        -X POST \
+        -d "{\"content\": \"New commit by ${{ env.commit_author }}: ${{ env.commit_message }}. [View Commit](${{ env.commit_url }})\"}" \
+        ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+    - name: Update last commit SHA
+      if: ${{ env.commit_sha != secrets.LAST_COMMIT_SHA }}
+      run: |
+        echo "::set-secret name=LAST_COMMIT_SHA::${{ env.commit_sha }}"
+
