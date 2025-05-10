@@ -60,7 +60,7 @@ jobs:
       run: |
         curl -H "Content-Type: application/json" \
         -X POST \
-        -d "{\"content\": \"<@787616132176937020> New commit by ${{ env.commit_author }}: ${{ env.commit_message }}. [View Commit](${{ env.commit_url }})\"}" \
+        -d "{\"content\": \"<@&1370743369587884104> New commit by ${{ env.commit_author }}: ${{ env.commit_message }}. [View Commit](${{ env.commit_url }})\"}" \
         ${{ secrets.DISCORD_WEBHOOK_URL }}
 
     - name: Commit last commit SHA
